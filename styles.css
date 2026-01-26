@@ -65,8 +65,8 @@ a {
 }
 
 .hero__logo img {
-  width: 110px;
-  height: 110px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   border: 2px solid #f5c542;
   background: #ffffff;
@@ -182,11 +182,23 @@ a {
   font-size: 1.1rem;
   font-weight: 700;
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+}
+
+.menu-card__hint {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(17, 17, 17, 0.7);
 }
 
 .juices {
   background: linear-gradient(120deg, #c62828, #8e1c1c);
   color: #ffffff;
+  padding: 48px 0;
 }
 
 .juices__grid {
@@ -196,12 +208,27 @@ a {
   align-items: center;
 }
 
+.juices__intro {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.juices__intro .section-title {
+  margin-bottom: 0;
+}
+
 .juices__card {
   background: #ffffff;
   color: #111111;
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 440px;
+  width: 100%;
+  justify-self: center;
 }
 
 .juices__card h3 {
@@ -212,6 +239,9 @@ a {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 20px;
 }
 
 .juices__list li {
@@ -381,9 +411,23 @@ a {
     gap: 8px;
   }
 
+  .hours__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .juices__card img {
     height: 180px;
     object-fit: cover;
+    margin: 0 auto;
+  }
+
+  .juices__list {
+    grid-template-columns: 1fr;
+  }
+
+  .juices__card {
+    text-align: center;
   }
 }
 
