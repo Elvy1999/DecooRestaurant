@@ -74,13 +74,14 @@ a {
 
 .hero__brand {
   font-family: "Playfair Display", serif;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   letter-spacing: 1px;
 }
 
 .hero__headline {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Cinzel Decorative", "Cormorant Garamond", serif;
   font-size: clamp(2.8rem, 5vw, 4.6rem);
+  letter-spacing: 1px;
   margin: 0;
 }
 
@@ -251,6 +252,30 @@ a {
   border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
 
+@media (min-width: 901px) {
+  .juices {
+    padding: 32px 0;
+  }
+
+  .juices__grid {
+    gap: 24px;
+  }
+
+  .juices__card {
+    max-width: 380px;
+    padding: 20px;
+  }
+
+  .juices__card img {
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .juices__list li {
+    padding: 10px 0;
+  }
+}
+
 .hours {
   background: #ffffff;
 }
@@ -297,7 +322,15 @@ a {
   text-align: center;
   padding: 24px 0;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  margin-top: 24px;
+}
+
+.footer__heart {
+  color: #f64b4b;
+  font-size: 1.05em;
 }
 
 .modal {
