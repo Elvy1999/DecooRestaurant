@@ -39,7 +39,9 @@ a {
 .hero {
   position: relative;
   min-height: 70vh;
-  background: linear-gradient(rgba(30, 10, 10, 0.7), rgba(30, 10, 10, 0.7)), url("images/menu.webp") center/cover no-repeat;
+  background:
+    linear-gradient(rgba(30, 10, 10, 0.7), rgba(30, 10, 10, 0.7)),
+    url("images/menu.webp") center/cover no-repeat;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -110,7 +112,10 @@ a {
   border: 2px solid transparent;
   font-weight: 600;
   letter-spacing: 0.5px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +165,9 @@ a {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
   text-align: center;
   padding-bottom: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   cursor: pointer;
 }
 
@@ -230,10 +237,15 @@ a {
   max-width: 440px;
   width: 100%;
   justify-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .juices__card h3 {
   margin-top: 0;
+  text-align: center;
 }
 
 .juices__list {
