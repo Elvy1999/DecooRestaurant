@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decoo Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container hero__content">
+        <div class="hero__topbar">
+          <div class="hero__logo">
+            <img src="images/Logo.png" alt="DecooRestaurant logo" />
+            <span class="hero__brand">Decoo Restaurant</span>
+          </div>
+          <a class="btn btn--ghost" href="#contact">Reserve a Table</a>
+        </div>
+        <div>
+          <h1 class="hero__headline">Donde comer es un placer</h1>
+          <p class="hero__tagline">
+            Savor warm empanadas, golden sorullitos, and island flavors crafted daily with love.
+          </p>
+        </div>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#menu" data-scroll-menu>View Menu</a>
+          <a class="btn btn--ghost" href="#hours">Hours of Operation</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="menu" class="menu-section section">
+        <div class="container">
+          <h2 class="section-title">Menu Categories</h2>
+          <div class="menu-grid">
+            <article class="menu-card" data-empanadas>
+              <img src="images/Empanads.webp" alt="Empanadas" />
+              <div class="menu-card__label">Empanadas</div>
+            </article>
+            <article class="menu-card">
+              <img src="images/Alcapurrias.jpg" alt="Alcapurrias" />
+              <div class="menu-card__label">Alcapurrias</div>
+            </article>
+            <article class="menu-card menu-card--quipe">
+              <img src="images/quipe.jpg" alt="Quipes" />
+              <div class="menu-card__label">Quipes</div>
+            </article>
+            <article class="menu-card">
+              <img src="images/Pinchos.webp" alt="Pinchos" />
+              <div class="menu-card__label">Pinchos</div>
+            </article>
+            <article class="menu-card">
+              <img src="images/Sorullitos.jpg" alt="Sorullitos" />
+              <div class="menu-card__label">Sorullitos</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="juices" class="juices section">
+        <div class="container juices__grid">
+          <div>
+            <h2 class="section-title">Juices</h2>
+            <p>Freshly blended and served chilled. Ask for the classic Morir Soñando.</p>
+            <a class="btn btn--primary" href="#contact">Order Juices</a>
+          </div>
+          <div class="juices__card">
+            <img src="images/juices.jpg" alt="Fresh juices" />
+            <h3>Juices Menu</h3>
+            <ul class="juices__list">
+              <li><span>Morir Soñando</span><span>$4.50</span></li>
+              <li><span>Passion Fruit</span><span>$4.25</span></li>
+              <li><span>Orange Juice</span><span>$4.00</span></li>
+              <li><span>Tamarindo</span><span>$4.25</span></li>
+              <li><span>Lemonade</span><span>$4.00</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="hours" class="hours section">
+        <div class="container">
+          <h2 class="section-title">Hours of Operation</h2>
+          <ul class="hours__list">
+            <li><span>Monday</span><span>Closed</span></li>
+            <li><span>Tuesday</span><span>7:30 AM - 6:00 PM</span></li>
+            <li><span>Wednesday</span><span>7:30 AM - 6:00 PM</span></li>
+            <li><span>Thursday</span><span>7:30 AM - 6:00 PM</span></li>
+            <li><span>Friday</span><span>7:30 AM - 6:00 PM</span></li>
+            <li><span>Saturday</span><span>7:30 AM - 6:00 PM</span></li>
+            <li><span>Sunday</span><span>Closed</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="contact section">
+        <div class="container">
+          <h2 class="section-title">Contact</h2>
+          <div class="contact__grid">
+            <div class="contact__card">
+              <h3>Visit Us</h3>
+              <p>3066 E St, Philadelphia, PA 19134</p>
+            </div>
+            <div class="contact__card">
+              <h3>Call or Email</h3>
+              <p>Email: decoorestaurant@gmail.com</p>
+              <p>Phone: (215) 425-1604</p>
+            </div>
+            <div class="contact__card">
+              <h3>Pricing Guide</h3>
+              <p>Empanadas: $3 - $4</p>
+              <p>Alcapurrias: $3 - $4</p>
+              <p>Quipes: $3</p>
+              <p>Pinchos: $3 - $4</p>
+              <p>Sorullitos: $2</p>
+            </div>
+          </div>
+          <div class="footer">Made fresh daily at DecooRestaurant</div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="empanadas-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Empanadas Menu</h3>
+        <p>Choose your favorite filling and enjoy it hot!</p>
+        <ul class="price-list">
+          <li><span>Chicken</span><span>$3.25</span></li>
+          <li><span>Beef</span><span>$3.50</span></li>
+          <li><span>Cheese</span><span>$3.00</span></li>
+          <li><span>Pizza</span><span>$3.75</span></li>
+          <li><span>Spinach</span><span>$3.25</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
