@@ -61,6 +61,18 @@ a {
   font-size: clamp(1.8rem, 2.2vw, 2.6rem);
   margin-bottom: $space-4;
   text-align: center;
+  color: $color-red-dark;
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 4px;
+    margin: $space-2 auto 0;
+    border-radius: 999px;
+    background: $color-yellow;
+  }
 }
 
 .hero {
@@ -189,10 +201,12 @@ a {
   padding-bottom: $space-3;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
+  border: 2px solid transparent;
 
   &:hover {
     transform: translateY(-6px) scale(1.01);
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+    border-color: $color-yellow;
   }
 }
 
@@ -289,6 +303,7 @@ a {
   padding: $space-4;
   border-radius: $radius-md;
   box-shadow: $shadow-soft;
+  border: 1px solid rgba($color-yellow, 0.7);
 }
 
 .footer {
@@ -340,6 +355,11 @@ a {
   height: 34px;
   cursor: pointer;
   font-size: 1.1rem;
+
+  &:hover {
+    background: $color-yellow;
+    color: $color-black;
+  }
 }
 
 .price-list {
