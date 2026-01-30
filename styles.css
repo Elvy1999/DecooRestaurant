@@ -34,7 +34,7 @@ a {
   font-size: clamp(1.8rem, 2.2vw, 2.6rem);
   margin-bottom: 24px;
   text-align: center;
-  color: #8e1c1c;
+  color: black;
   position: relative;
 }
 .section-title::after {
@@ -47,10 +47,19 @@ a {
   background: #f5c542;
 }
 
+.section-lead {
+  max-width: 680px;
+  margin: 0 auto 24px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .hero {
   position: relative;
-  min-height: 70vh;
-  background: linear-gradient(rgba(30, 10, 10, 0.7), rgba(30, 10, 10, 0.7)), url("images/menu.webp") center/cover no-repeat;
+  min-height: 40vh;
+  background:
+    linear-gradient(rgba(30, 10, 10, 0.7), rgba(30, 10, 10, 0.7)),
+    url("images/menu.webp") center/cover no-repeat;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -58,6 +67,8 @@ a {
 
 .hero__content {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  align-items: center;
   gap: 24px;
   padding: 64px 0;
 }
@@ -76,8 +87,8 @@ a {
 }
 
 .hero__logo img {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   border: 2px solid #f5c542;
   background: #ffffff;
@@ -85,8 +96,13 @@ a {
 
 .hero__brand {
   font-family: "Playfair Display", serif;
-  font-size: 1.4rem;
+  font-size: 1.75rem;
   letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.hero__intro {
+  text-align: center;
 }
 
 .hero__headline {
@@ -112,6 +128,28 @@ a {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .hero__content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 48px 0;
+    text-align: center;
+  }
+
+  .hero__topbar {
+    justify-content: center;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
+
+  .hero__tagline {
+    max-width: 100%;
+  }
 }
 
 .btn {
@@ -120,7 +158,10 @@ a {
   border: 2px solid transparent;
   font-weight: 600;
   letter-spacing: 0.5px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +209,9 @@ a {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
   text-align: center;
   padding-bottom: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   cursor: pointer;
   border: 2px solid transparent;
 }
@@ -182,12 +225,12 @@ a {
   width: 100%;
   height: 160px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .menu-card--quipe img {
   -o-object-position: center 30%;
-     object-position: center 30%;
+  object-position: center 30%;
 }
 
 .menu-card__label {
@@ -196,41 +239,69 @@ a {
   margin-top: 16px;
 }
 
-.juices {
+.drinks {
   background: linear-gradient(120deg, #c62828, #8e1c1c);
   color: #ffffff;
 }
 
-.juices__grid {
+.drinks__grid {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(240px, 1fr);
-  gap: 32px;
-  align-items: center;
+  grid-template-columns: repeat(2, minmax(200px, 280px));
+  gap: 24px;
+  margin: 24px auto 0;
+  justify-content: center;
+  max-width: 720px;
 }
 
-.juices__card {
+.drinks__card {
   background: #ffffff;
   color: #111111;
   border-radius: 16px;
-  padding: 24px;
+  overflow: hidden;
+  padding-bottom: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.juices__card h3 {
-  margin-top: 0;
-}
-
-.juices__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.juices__list li {
+  text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+  aspect-ratio: 1 / 1;
+  border: 2px solid transparent;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.drinks__card img {
+  width: 100%;
+  height: 58%;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.drinks__card h3 {
+  margin: 16px 0 8px;
+}
+
+.drinks__card p {
+  margin: 0;
+  color: #111111;
+  font-weight: 600;
+}
+
+.drinks__card[data-beverages] h3 {
+  margin: auto 0;
+}
+
+.drinks__card[data-juices],
+.drinks__card[data-beverages] {
+  cursor: pointer;
+}
+
+.drinks__card[data-juices]:hover,
+.drinks__card[data-beverages]:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+  border-color: #f5c542;
 }
 
 .hours {
@@ -305,6 +376,8 @@ a {
   padding: 32px;
   max-width: 520px;
   width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   position: relative;
 }
@@ -337,6 +410,12 @@ a {
   margin: 16px 0 0;
 }
 
+.price-list--scroll {
+  max-height: 270px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
 .price-list li {
   display: flex;
   justify-content: space-between;
@@ -345,13 +424,13 @@ a {
 }
 
 @media (max-width: 900px) {
-  .juices__grid {
+  .drinks__grid {
     grid-template-columns: 1fr;
   }
 }
 @media (max-width: 700px) {
   .hero {
-    min-height: 80vh;
+    min-height: 62vh;
   }
   .hero__topbar {
     flex-direction: column;
@@ -359,7 +438,7 @@ a {
     text-align: center;
   }
   .hero__content {
-    padding: 48px 0;
+    padding: 32px 0 20px;
     align-items: center;
     text-align: center;
   }
@@ -376,8 +455,11 @@ a {
   .menu-section {
     margin-top: -32px;
   }
+  .menu-section {
+    padding: 36px 0 48px;
+  }
   .menu-grid {
-    gap: 16px;
+    gap: 12px;
   }
   .menu-card img {
     height: 140px;
@@ -387,21 +469,45 @@ a {
     align-items: flex-start;
     gap: 8px;
   }
-  .juices__card img {
-    height: 180px;
-    -o-object-fit: cover;
-       object-fit: cover;
+  .drinks__card img {
+    height: 165px;
+    -o-object-fit: contain;
+    object-fit: contain;
   }
 }
 @media (max-width: 520px) {
   .section {
-    padding: 48px 0;
+    padding: 36px 0;
+  }
+  .hero__content {
+    padding: 22px 0 14px;
+  }
+  .hero__actions {
+    gap: 8px;
   }
   .hero__headline {
     font-size: clamp(2.1rem, 7vw, 2.8rem);
   }
   .hero__tagline {
     font-size: 1rem;
+  }
+  .drinks__grid {
+    gap: 20px;
+  }
+  .drinks__card img {
+    height: 150px;
+  }
+  .contact__grid {
+    gap: 16px;
+  }
+  .contact__card {
+    padding: 16px;
+  }
+  .hours__list li {
+    padding: 12px 16px;
+  }
+  .footer {
+    padding: 16px 0;
   }
   .modal__content {
     padding: 24px;

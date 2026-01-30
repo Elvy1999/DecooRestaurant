@@ -8,7 +8,7 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-  
+
       gtag("config", "G-H3W6WLZ2QG");
     </script>
     <meta charset="UTF-8" />
@@ -19,7 +19,7 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:wght@600;700&family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap"
       rel="stylesheet"
-      />
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -31,7 +31,7 @@
             <span class="hero__brand">Decoo Restaurant</span>
           </div>
         </div>
-        <div>
+        <div class="hero__intro">
           <h1 class="hero__headline">Donde comer es un placer</h1>
           <p class="hero__tagline">
             Savor warm empanadas, golden sorullitos, and island flavors crafted daily with love.
@@ -76,22 +76,20 @@
         </div>
       </section>
 
-      <section id="juices" class="juices section">
-        <div class="container juices__grid">
-          <div class="juices__intro">
-            <h2 class="section-title">Juices</h2>
-            <p>Freshly blended and served chilled. Ask for the classic Morir Soñando.</p>
-          </div>
-          <div class="juices__card">
-            <img src="images/juices.jpg" alt="Fresh juices" />
-            <h3>Juices Menu</h3>
-            <ul class="juices__list">
-              <li><span>Morir Soñando </span><span> $4.50</span></li>
-              <li><span>Passion Fruit</span><span>$4.25</span></li>
-              <li><span>Orange Juice</span><span>$4.00</span></li>
-              <li><span>Tamarindo</span><span>$4.25</span></li>
-              <li><span>Lemonade</span><span>$4.00</span></li>
-            </ul>
+      <section id="juices" class="drinks section">
+        <div class="container">
+          <h2 class="section-title">Drinks</h2>
+          <p class="section-lead">Freshly blended juices and chilled beverages to pair with every bite.</p>
+          <div class="drinks__grid">
+            <article class="drinks__card" data-juices>
+              <img src="images/juices.jpg" alt="Fresh juices" />
+              <h3>Natural Juices</h3>
+              <p>(Freshly Made)</p>
+            </article>
+            <article class="drinks__card" data-beverages>
+              <img src="images/beverages.jpg" alt="Assorted beverages" />
+              <h3>Beverages</h3>
+            </article>
           </div>
         </div>
       </section>
@@ -142,6 +140,41 @@
           <li><span> 3 Cheese</span><span>$3.50</span></li>
           <li><span>Steak</span><span>$4.00</span></li>
           <li><span>Crab</span><span>$4.00</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal" id="juices-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Natural Juices</h3>
+        <p>Home made, freshly blended, and served chilled.</p>
+        <ul class="price-list price-list--scroll">
+          <li><span>Morir Soñando</span><span>$4.50</span></li>
+          <li><span>Passion Fruit</span><span>$4.25</span></li>
+          <li><span>Orange Juice</span><span>$4.00</span></li>
+          <li><span>Tamarindo</span><span>$4.25</span></li>
+          <li><span>Lemonade</span><span>$4.00</span></li>
+          <li><span>Guava</span><span>$4.25</span></li>
+          <li><span>Pineapple</span><span>$4.00</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal" id="beverages-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Beverages</h3>
+        <p>Refreshing options to enjoy with your meal.</p>
+        <ul class="price-list price-list--scroll">
+          <li><span>Soft Drinks</span><span>$2.50</span></li>
+          <li><span>Malta</span><span>$3.00</span></li>
+          <li><span>Water</span><span>$1.75</span></li>
+          <li><span>Sparkling Water</span><span>$2.25</span></li>
+          <li><span>Iced Tea</span><span>$2.75</span></li>
+          <li><span>Lemon Iced Tea</span><span>$2.75</span></li>
+          <li><span>Ginger Ale</span><span>$2.75</span></li>
+          <li><span>Orange Soda</span><span>$2.75</span></li>
         </ul>
       </div>
     </div>

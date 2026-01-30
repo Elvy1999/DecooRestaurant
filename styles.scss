@@ -75,10 +75,18 @@ a {
   }
 }
 
+.section-lead {
+  max-width: 680px;
+  margin: 0 auto $space-4;
+  text-align: center;
+  color: rgba($color-white, 0.9);
+}
+
 .hero {
   position: relative;
   min-height: 70vh;
-  background: linear-gradient(rgba(30, 10, 10, 0.7), rgba(30, 10, 10, 0.7)),
+  background:
+    linear-gradient(rgba(30, 10, 10, 0.7), rgba(30, 10, 10, 0.7)),
     url("images/menu.webp") center/cover no-repeat;
   color: $color-white;
   display: flex;
@@ -87,6 +95,8 @@ a {
 
 .hero__content {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  align-items: center;
   gap: $space-4;
   padding: $space-7 0;
 }
@@ -118,6 +128,10 @@ a {
   letter-spacing: 1px;
 }
 
+.hero__intro {
+  text-align: center;
+}
+
 .hero__headline {
   font-family: $font-hero;
   font-size: clamp(2.8rem, 5vw, 4.6rem);
@@ -141,6 +155,28 @@ a {
   display: flex;
   gap: $space-3;
   flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .hero__content {
+    grid-template-columns: 1fr;
+    gap: $space-3;
+    padding: $space-6 0;
+    text-align: center;
+  }
+
+  .hero__topbar {
+    justify-content: center;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
+
+  .hero__tagline {
+    max-width: 100%;
+  }
 }
 
 .btn {
@@ -149,7 +185,10 @@ a {
   border: 2px solid transparent;
   font-weight: 600;
   letter-spacing: 0.5px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -199,7 +238,9 @@ a {
   box-shadow: $shadow-card;
   text-align: center;
   padding-bottom: $space-3;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   cursor: pointer;
   border: 2px solid transparent;
 
@@ -226,41 +267,63 @@ a {
   margin-top: $space-3;
 }
 
-.juices {
+.drinks {
   background: linear-gradient(120deg, $color-red, $color-red-dark);
   color: $color-white;
 }
 
-.juices__grid {
+.drinks__grid {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) minmax(240px, 1fr);
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
   gap: $space-5;
-  align-items: center;
+  margin-top: $space-4;
 }
 
-.juices__card {
+.drinks__card {
   background: $color-white;
   color: $color-black;
   border-radius: $radius-md;
-  padding: $space-4;
+  overflow: hidden;
+  padding-bottom: $space-4;
   box-shadow: $shadow-soft;
-}
-
-.juices__card h3 {
-  margin-top: 0;
-}
-
-.juices__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.juices__list li {
+  text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  padding: $space-2 0;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+  aspect-ratio: 1 / 1;
+  border: 2px solid transparent;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.drinks__card img {
+  width: 100%;
+  height: 58%;
+  object-fit: contain;
+  background: $color-white;
+}
+
+.drinks__card h3 {
+  margin: $space-3 0 $space-1;
+}
+
+.drinks__card p {
+  margin: 0;
+  color: $color-black;
+  font-weight: 600;
+}
+
+.drinks__card[data-juices],
+.drinks__card[data-beverages] {
+  cursor: pointer;
+}
+
+.drinks__card[data-juices]:hover,
+.drinks__card[data-beverages]:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+  border-color: $color-yellow;
 }
 
 .hours {
@@ -335,6 +398,8 @@ a {
   padding: $space-5;
   max-width: 520px;
   width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
   box-shadow: $shadow-soft;
   position: relative;
 }
@@ -368,6 +433,12 @@ a {
   margin: $space-3 0 0;
 }
 
+.price-list--scroll {
+  max-height: 270px;
+  overflow-y: auto;
+  padding-right: $space-1;
+}
+
 .price-list li {
   display: flex;
   justify-content: space-between;
@@ -376,7 +447,7 @@ a {
 }
 
 @media (max-width: 900px) {
-  .juices__grid {
+  .drinks__grid {
     grid-template-columns: 1fr;
   }
 }
@@ -429,7 +500,7 @@ a {
     gap: $space-1;
   }
 
-  .juices__card img {
+  .drinks__card img {
     height: 180px;
     object-fit: cover;
   }
