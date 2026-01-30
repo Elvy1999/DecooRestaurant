@@ -48,6 +48,7 @@
       <section id="menu" class="menu-section section">
         <div class="container">
           <h2 class="section-title">Menu</h2>
+          <p class="section-note">(click to order)</p>
           <div class="menu-grid">
             <article class="menu-card" data-empanadas>
               <img src="images/Empanads.webp" alt="Empanadas" />
@@ -56,19 +57,19 @@
                 <span class="menu-card__hint">(click for flavors)</span>
               </div>
             </article>
-            <article class="menu-card">
+            <article class="menu-card" data-alcapurrias>
               <img src="images/Alcapurrias.jpg" alt="Alcapurrias" />
               <div class="menu-card__label">Alcapurrias</div>
             </article>
-            <article class="menu-card menu-card--quipe">
+            <article class="menu-card menu-card--quipe" data-quipes>
               <img src="images/quipe.jpg" alt="Quipes" />
               <div class="menu-card__label">Quipes</div>
             </article>
-            <article class="menu-card">
+            <article class="menu-card" data-pinchos>
               <img src="images/Pinchos.webp" alt="Pinchos" />
               <div class="menu-card__label">Pinchos</div>
             </article>
-            <article class="menu-card">
+            <article class="menu-card" data-sorullitos>
               <img src="images/Sorullitos.jpg" alt="Sorullitos" />
               <div class="menu-card__label">Sorullitos</div>
             </article>
@@ -79,16 +80,17 @@
       <section id="juices" class="drinks section">
         <div class="container">
           <h2 class="section-title">Drinks</h2>
-          <p class="section-lead">Freshly blended juices and chilled beverages to pair with every bite.</p>
+          <p class="section-note">(click to order)</p>
           <div class="drinks__grid">
             <article class="drinks__card" data-juices>
               <img src="images/juices.jpg" alt="Fresh juices" />
               <h3>Natural Juices</h3>
-              <p>(Freshly Made)</p>
+              <p class="drinks__subtitle">(Freshly Made)</p>
             </article>
             <article class="drinks__card" data-beverages>
               <img src="images/beverages.jpg" alt="Assorted beverages" />
               <h3>Beverages</h3>
+              <p class="drinks__subtitle" aria-hidden="true">&nbsp;</p>
             </article>
           </div>
         </div>
@@ -130,13 +132,61 @@
         <button class="modal__close" type="button" data-modal-close>X</button>
         <h3>Empanadas Menu</h3>
         <p>Choose your favorite filling and enjoy it hot!</p>
-        <ul class="price-list">
+        <ul class="price-list price-list--scroll">
           <li><span>Chicken</span><span>$3.25</span></li>
           <li><span>Beef</span><span>$3.50</span></li>
           <li><span>Pork</span><span>$3.50</span></li>
           <li><span> 3 Cheese</span><span>$3.50</span></li>
           <li><span>Steak</span><span>$4.00</span></li>
           <li><span>Crab</span><span>$4.00</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal" id="alcapurrias-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Alcapurrias</h3>
+        <p>Ask about today's fillings and sizes.</p>
+        <ul class="price-list">
+          <li><span>Traditional</span><span>Market Price</span></li>
+          <li><span>Specialty</span><span>Market Price</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal" id="quipes-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Quipes</h3>
+        <p>Ask about today's fillings and sizes.</p>
+        <ul class="price-list">
+          <li><span>Traditional</span><span>Market Price</span></li>
+          <li><span>Specialty</span><span>Market Price</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal" id="pinchos-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Pinchos</h3>
+        <p>Ask about today's proteins and sauces.</p>
+        <ul class="price-list">
+          <li><span>Single Skewer</span><span>Market Price</span></li>
+          <li><span>Combo Plate</span><span>Market Price</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modal" id="sorullitos-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Sorullitos</h3>
+        <p>Ask about today's sizes and dipping sauces.</p>
+        <ul class="price-list">
+          <li><span>Regular</span><span>Market Price</span></li>
+          <li><span>Large</span><span>Market Price</span></li>
         </ul>
       </div>
     </div>

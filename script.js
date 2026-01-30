@@ -1,7 +1,15 @@
 const empanadasTrigger = document.querySelector("[data-empanadas]");
+const alcapurriasTrigger = document.querySelector("[data-alcapurrias]");
+const quipesTrigger = document.querySelector("[data-quipes]");
+const pinchosTrigger = document.querySelector("[data-pinchos]");
+const sorullitosTrigger = document.querySelector("[data-sorullitos]");
 const juicesTrigger = document.querySelector("[data-juices]");
 const beveragesTrigger = document.querySelector("[data-beverages]");
 const empanadasModal = document.querySelector("#empanadas-modal");
+const alcapurriasModal = document.querySelector("#alcapurrias-modal");
+const quipesModal = document.querySelector("#quipes-modal");
+const pinchosModal = document.querySelector("#pinchos-modal");
+const sorullitosModal = document.querySelector("#sorullitos-modal");
 const juicesModal = document.querySelector("#juices-modal");
 const beveragesModal = document.querySelector("#beverages-modal");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
@@ -24,6 +32,22 @@ const closeModal = (modal) => {
 
 if (empanadasTrigger) {
   empanadasTrigger.addEventListener("click", () => openModal(empanadasModal));
+}
+
+if (alcapurriasTrigger) {
+  alcapurriasTrigger.addEventListener("click", () => openModal(alcapurriasModal));
+}
+
+if (quipesTrigger) {
+  quipesTrigger.addEventListener("click", () => openModal(quipesModal));
+}
+
+if (pinchosTrigger) {
+  pinchosTrigger.addEventListener("click", () => openModal(pinchosModal));
+}
+
+if (sorullitosTrigger) {
+  sorullitosTrigger.addEventListener("click", () => openModal(sorullitosModal));
 }
 
 if (juicesTrigger) {

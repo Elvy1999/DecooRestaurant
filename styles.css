@@ -47,6 +47,13 @@ a {
   background: #f5c542;
 }
 
+.section-note {
+  margin: 8px auto 16px;
+  text-align: center;
+  font-weight: 600;
+  color: #111111;
+}
+
 .section-lead {
   max-width: 680px;
   margin: 0 auto 24px;
@@ -269,15 +276,15 @@ a {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   aspect-ratio: 1 / 1;
-  padding-bottom: 4px;
+  padding-bottom: 0;
 }
 
 .drinks__card img {
   width: 100%;
-  height: 52%;
-  object-fit: contain;
+  height: 70%;
+  object-fit: cover;
   background: #fffdf5;
   border-bottom: 2px solid rgba(245, 197, 66, 0.7);
 }
@@ -285,12 +292,15 @@ a {
 .drinks__card h3 {
   margin: 10px 0 2px;
   color: #7a4a00;
+  min-height: 1.3em;
 }
 
-.drinks__card p {
+.drinks__subtitle {
   margin: 0 0 6px;
   color: #8c5b00;
   font-weight: 600;
+  font-size: 1.15rem;
+  min-height: 1.2em;
 }
 
 
@@ -474,9 +484,9 @@ a {
     gap: 8px;
   }
   .drinks__card img {
-    height: 165px;
-    -o-object-fit: contain;
-    object-fit: contain;
+    height: 70%;
+    -o-object-fit: cover;
+    object-fit: cover;
   }
   .drinks__card {
     padding-bottom: 0;
@@ -502,7 +512,7 @@ a {
     gap: 20px;
   }
   .drinks__card img {
-    height: 150px;
+    height: 70%;
   }
   .contact__grid {
     gap: 16px;
