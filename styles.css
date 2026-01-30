@@ -99,6 +99,7 @@ a {
   font-size: 1.75rem;
   letter-spacing: 1px;
   color: #ffffff;
+  text-align: center;
 }
 
 .hero__intro {
@@ -128,7 +129,9 @@ a {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
+  justify-self: center;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -203,7 +206,7 @@ a {
 }
 
 .menu-card {
-  background: #ffffff;
+  background: linear-gradient(165deg, #fff9e6 0%, #ffe8a6 100%);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
@@ -237,10 +240,16 @@ a {
   font-size: 1.1rem;
   font-weight: 700;
   margin-top: 16px;
+  color: #7a4a00;
 }
 
 .drinks {
   background: linear-gradient(120deg, #c62828, #8e1c1c);
+  color: #ffffff;
+}
+
+.drinks .section-title,
+.contact .section-title {
   color: #ffffff;
 }
 
@@ -254,18 +263,18 @@ a {
 }
 
 .drinks__card {
-  background: #ffffff;
+  background: linear-gradient(165deg, #fff9e6 0%, #ffe8a6 100%);
   color: #111111;
   border-radius: 16px;
   overflow: hidden;
-  padding-bottom: 16px;
+  padding-bottom: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   aspect-ratio: 1 / 1;
-  border: 2px solid transparent;
+  border: 2px solid rgba(245, 197, 66, 0.7);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -273,24 +282,23 @@ a {
 
 .drinks__card img {
   width: 100%;
-  height: 58%;
+  height: 52%;
   object-fit: contain;
-  background: #ffffff;
+  background: #fffdf5;
+  border-bottom: 2px solid rgba(245, 197, 66, 0.7);
 }
 
 .drinks__card h3 {
-  margin: 16px 0 8px;
+  margin: 10px 0 2px;
+  color: #7a4a00;
 }
 
 .drinks__card p {
-  margin: 0;
-  color: #111111;
+  margin: 0 0 6px;
+  color: #8c5b00;
   font-weight: 600;
 }
 
-.drinks__card[data-beverages] h3 {
-  margin: auto 0;
-}
 
 .drinks__card[data-juices],
 .drinks__card[data-beverages] {
@@ -336,24 +344,37 @@ a {
 .contact__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+  gap: 16px;
 }
 
 .contact__card {
   background: rgba(255, 255, 255, 0.1);
-  padding: 24px;
+  padding: 16px 20px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(245, 197, 66, 0.7);
 }
 
-.footer {
-  text-align: center;
-  padding: 24px 0;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+.contact__card h3 {
+  font-size: 1.2rem;
 }
 
+.contact__card p {
+  font-size: 1.05rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 12px 0;
+  font-size: 0.9rem;
+  color: #2a2a2a;
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.footer__heart {
+  color: #c62828;
+}
 .modal {
   position: fixed;
   inset: 0;
@@ -473,6 +494,9 @@ a {
     height: 165px;
     -o-object-fit: contain;
     object-fit: contain;
+  }
+  .drinks__card {
+    padding-bottom: 0;
   }
 }
 @media (max-width: 520px) {
