@@ -205,7 +205,8 @@ a {
   gap: 24px;
 }
 
-.menu-card {
+.menu-card,
+.drinks__card {
   background: linear-gradient(165deg, #fff9e6 0%, #ffe8a6 100%);
   border-radius: 16px;
   overflow: hidden;
@@ -218,7 +219,8 @@ a {
   cursor: pointer;
   border: 2px solid transparent;
 }
-.menu-card:hover {
+.menu-card:hover,
+.drinks__card:hover {
   transform: translateY(-6px) scale(1.01);
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
   border-color: #f5c542;
@@ -263,21 +265,13 @@ a {
 }
 
 .drinks__card {
-  background: linear-gradient(165deg, #fff9e6 0%, #ffe8a6 100%);
   color: #111111;
-  border-radius: 16px;
-  overflow: hidden;
-  padding-bottom: 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   aspect-ratio: 1 / 1;
-  border: 2px solid rgba(245, 197, 66, 0.7);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  padding-bottom: 4px;
 }
 
 .drinks__card img {
@@ -300,17 +294,6 @@ a {
 }
 
 
-.drinks__card[data-juices],
-.drinks__card[data-beverages] {
-  cursor: pointer;
-}
-
-.drinks__card[data-juices]:hover,
-.drinks__card[data-beverages]:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
-  border-color: #f5c542;
-}
 
 .hours {
   background: #ffffff;
