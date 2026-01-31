@@ -497,6 +497,17 @@ a {
   padding: 12px 0;
   border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
+.price-list__note {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #c62828;
+  background: #fff3c4;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
 
 @media (max-width: 900px) {
   .drinks__grid {
@@ -589,6 +600,10 @@ a {
   }
   .modal__content {
     padding: 24px;
+  }
+  .modal {
+    align-items: flex-start;
+    padding-top: 48px;
   }
 }
 
