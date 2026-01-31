@@ -336,11 +336,12 @@ a {
 
 .drinks__subtitle {
   margin: 0 0 6px;
-  color: #8c5b00;
-  font-weight: 600;
-  font-size: 1.15rem;
   min-height: 1.2em;
   text-align: center;
+  align-self: center;
+}
+.drinks__subtitle.price-list__note {
+  font-size: 0.9rem;
 }
 
 .hours {
@@ -586,6 +587,12 @@ a {
   .drinks__card img {
     height: 70%;
   }
+  .modal--single {
+    align-items: flex-start;
+  }
+  .modal--single .modal__content {
+    margin-top: 18vh;
+  }
   .contact__grid {
     gap: 16px;
   }
@@ -611,5 +618,8 @@ a {
   .menu-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 16px;
+  }
+  .hero__tagline {
+    margin-top: 24px;
   }
 }
