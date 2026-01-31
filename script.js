@@ -3,6 +3,7 @@ const alcapurriasTrigger = document.querySelector("[data-alcapurrias]");
 const quipesTrigger = document.querySelector("[data-quipes]");
 const pinchosTrigger = document.querySelector("[data-pinchos]");
 const sorullitosTrigger = document.querySelector("[data-sorullitos]");
+const tresLechesTrigger = document.querySelector("[data-tres-leches]");
 const juicesTrigger = document.querySelector("[data-juices]");
 const beveragesTrigger = document.querySelector("[data-beverages]");
 const empanadasModal = document.querySelector("#empanadas-modal");
@@ -10,6 +11,7 @@ const alcapurriasModal = document.querySelector("#alcapurrias-modal");
 const quipesModal = document.querySelector("#quipes-modal");
 const pinchosModal = document.querySelector("#pinchos-modal");
 const sorullitosModal = document.querySelector("#sorullitos-modal");
+const tresLechesModal = document.querySelector("#tres-leches-modal");
 const juicesModal = document.querySelector("#juices-modal");
 const beveragesModal = document.querySelector("#beverages-modal");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
@@ -48,6 +50,10 @@ if (pinchosTrigger) {
 
 if (sorullitosTrigger) {
   sorullitosTrigger.addEventListener("click", () => openModal(sorullitosModal));
+}
+
+if (tresLechesTrigger) {
+  tresLechesTrigger.addEventListener("click", () => openModal(tresLechesModal));
 }
 
 if (juicesTrigger) {
