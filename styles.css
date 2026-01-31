@@ -51,7 +51,12 @@ a {
   margin: 8px auto 16px;
   text-align: center;
   font-weight: 600;
+  font-size: 1.05rem;
   color: #111111;
+}
+
+.drinks .section-note {
+  color: #ffffff;
 }
 
 .section-lead {
@@ -293,6 +298,7 @@ a {
   margin: 10px 0 2px;
   color: #7a4a00;
   min-height: 1.3em;
+  text-align: center;
 }
 
 .drinks__subtitle {
@@ -301,9 +307,8 @@ a {
   font-weight: 600;
   font-size: 1.15rem;
   min-height: 1.2em;
+  text-align: center;
 }
-
-
 
 .hours {
   background: #ffffff;
@@ -396,8 +401,10 @@ a {
   position: relative;
 }
 
-.modal__content h3 {
+
+.modal__content h3, p {
   margin-top: 0;
+  text-align: center;
 }
 
 .modal__close {
@@ -406,16 +413,33 @@ a {
   right: 12px;
   background: #c62828;
   color: #ffffff;
-  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.85);
   border-radius: 50%;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
   font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .modal__close:hover {
   background: #f5c542;
   color: #111111;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+}
+.modal__close:focus-visible {
+  outline: 3px solid rgba(245, 197, 66, 0.6);
+  outline-offset: 2px;
 }
 
 .price-list {
