@@ -339,9 +339,10 @@ a {
   min-height: 1.2em;
   text-align: center;
   align-self: center;
+  font-size: 1.1rem;
 }
 .drinks__subtitle.price-list__note {
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .hours {
@@ -508,6 +509,9 @@ a {
   background: #fff3c4;
   padding: 2px 8px;
   border-radius: 999px;
+}
+.modal .price-list__note {
+  font-size: 0.95rem;
 }
 
 @media (max-width: 900px) {
