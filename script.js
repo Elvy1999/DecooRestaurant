@@ -1,29 +1,27 @@
-const empanadasTrigger = document.querySelector("[data-empanadas]");
-const alcapurriasTrigger = document.querySelector("[data-alcapurrias]");
-const quipesTrigger = document.querySelector("[data-quipes]");
-const pinchosTrigger = document.querySelector("[data-pinchos]");
-const sorullitosTrigger = document.querySelector("[data-sorullitos]");
-const tresLechesTrigger = document.querySelector("[data-tres-leches]");
-const juicesTrigger = document.querySelector("[data-juices]");
-const beveragesTrigger = document.querySelector("[data-beverages]");
-const empanadasModal = document.querySelector("#empanadas-modal");
-const alcapurriasModal = document.querySelector("#alcapurrias-modal");
-const quipesModal = document.querySelector("#quipes-modal");
-const pinchosModal = document.querySelector("#pinchos-modal");
-const sorullitosModal = document.querySelector("#sorullitos-modal");
-const tresLechesModal = document.querySelector("#tres-leches-modal");
-const juicesModal = document.querySelector("#juices-modal");
-const beveragesModal = document.querySelector("#beverages-modal");
+// Map trigger selectors to their corresponding modal IDs.
+const modalPairs = [
+  ["[data-empanadas]", "#empanadas-modal"],
+  ["[data-alcapurrias]", "#alcapurrias-modal"],
+  ["[data-quipes]", "#quipes-modal"],
+  ["[data-pinchos]", "#pinchos-modal"],
+  ["[data-sorullitos]", "#sorullitos-modal"],
+  ["[data-tres-leches]", "#tres-leches-modal"],
+  ["[data-juices]", "#juices-modal"],
+  ["[data-beverages]", "#beverages-modal"],
+];
+// Shared modal close controls and backdrop areas.
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
 const modalBackdrops = document.querySelectorAll(".modal");
 const menuButton = document.querySelector("[data-scroll-menu]");
 
+// Open a modal and lock page scroll.
 const openModal = (modal) => {
   if (!modal) return;
   modal.classList.add("is-open");
   document.body.style.overflow = "hidden";
 };
 
+// Close a modal and restore scroll if none are open.
 const closeModal = (modal) => {
   if (!modal) return;
   modal.classList.remove("is-open");
@@ -32,38 +30,15 @@ const closeModal = (modal) => {
   }
 };
 
-if (empanadasTrigger) {
-  empanadasTrigger.addEventListener("click", () => openModal(empanadasModal));
-}
+// Wire each menu/drink card to its modal.
+modalPairs.forEach(([triggerSelector, modalSelector]) => {
+  const trigger = document.querySelector(triggerSelector);
+  const modal = document.querySelector(modalSelector);
+  if (!trigger || !modal) return;
+  trigger.addEventListener("click", () => openModal(modal));
+});
 
-if (alcapurriasTrigger) {
-  alcapurriasTrigger.addEventListener("click", () => openModal(alcapurriasModal));
-}
-
-if (quipesTrigger) {
-  quipesTrigger.addEventListener("click", () => openModal(quipesModal));
-}
-
-if (pinchosTrigger) {
-  pinchosTrigger.addEventListener("click", () => openModal(pinchosModal));
-}
-
-if (sorullitosTrigger) {
-  sorullitosTrigger.addEventListener("click", () => openModal(sorullitosModal));
-}
-
-if (tresLechesTrigger) {
-  tresLechesTrigger.addEventListener("click", () => openModal(tresLechesModal));
-}
-
-if (juicesTrigger) {
-  juicesTrigger.addEventListener("click", () => openModal(juicesModal));
-}
-
-if (beveragesTrigger) {
-  beveragesTrigger.addEventListener("click", () => openModal(beveragesModal));
-}
-
+// Close when clicking the X button.
 modalCloseButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     const modal = event.target.closest(".modal");
@@ -71,6 +46,7 @@ modalCloseButtons.forEach((button) => {
   });
 });
 
+// Close when clicking the dimmed backdrop.
 modalBackdrops.forEach((modal) => {
   modal.addEventListener("click", (event) => {
     if (event.target === modal) {
@@ -79,6 +55,7 @@ modalBackdrops.forEach((modal) => {
   });
 });
 
+// Close on Escape key.
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     document.querySelectorAll(".modal.is-open").forEach((modal) => {
@@ -87,6 +64,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+// Smooth scroll for the hero "View Menu" button.
 if (menuButton) {
   menuButton.addEventListener("click", (event) => {
     event.preventDefault();
