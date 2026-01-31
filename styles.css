@@ -376,6 +376,7 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
+  justify-items: center;
 }
 
 .contact__card {
@@ -384,6 +385,9 @@ a {
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(245, 197, 66, 0.7);
+  text-align: center;
+  width: 100%;
+  max-width: 360px;
 }
 
 .contact__card h3 {
