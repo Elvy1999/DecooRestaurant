@@ -510,6 +510,9 @@ a {
   padding: 2px 8px;
   border-radius: 999px;
 }
+.price-list__note--compact {
+  font-size: 0.7rem;
+}
 .modal .price-list__note {
   font-size: 0.95rem;
 }
@@ -596,6 +599,12 @@ a {
   }
   .modal--single .modal__content {
     margin-top: 18vh;
+  }
+  .modal .price-list__note {
+    font-size: 1.1rem;
+  }
+  .modal .price-list__note--compact {
+    font-size: 0.85rem;
   }
   .contact__grid {
     gap: 16px;
