@@ -526,6 +526,18 @@ a {
   align-items: center;
   gap: 10px;
 }
+.menu-item--soldout {
+  opacity: 0.75;
+}
+.menu-item__soldout-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #c62828;
+  background: #fff3c4;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
 .menu-item__price {
   font-weight: 700;
   color: #7a4a00;
@@ -715,6 +727,35 @@ a {
   font-size: 0.85rem;
   color: #6b5b4b;
   text-align: center;
+}
+.checkout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.checkout__note {
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+  color: #c62828;
+}
+.checkout__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+.checkout__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fffdf5;
+  font-weight: 600;
+}
+.checkout__option input:disabled + span {
+  color: rgba(17, 17, 17, 0.4);
 }
 .price-list__note {
   display: inline-block;

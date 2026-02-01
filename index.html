@@ -223,9 +223,31 @@
           <p class="totals__note">No additional taxes applied</p>
         </div>
 
-        <button type="button" class="btn btn--primary" data-checkout-disabled>
-          Checkout (coming soon)
+        <button type="button" class="btn btn--primary" data-open-checkout>
+          Checkout
         </button>
+      </div>
+    </div>
+
+    <div class="modal" id="checkout-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Checkout</h3>
+        <div class="checkout">
+          <p class="checkout__note" data-checkout-note hidden>
+            Delivery unavailable right now — Pickup only.
+          </p>
+          <div class="checkout__options" role="radiogroup" aria-label="Fulfillment method">
+            <label class="checkout__option" data-checkout-pickup-option>
+              <input type="radio" name="fulfillment" value="pickup" data-checkout-pickup />
+              <span>Pickup</span>
+            </label>
+            <label class="checkout__option" data-checkout-delivery-option>
+              <input type="radio" name="fulfillment" value="delivery" data-checkout-delivery />
+              <span>Delivery</span>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
 

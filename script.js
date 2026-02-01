@@ -1,43 +1,71 @@
 const CART_KEY = "decoo_cart";
-const PROCESSING_FEE = 1.0;
-
+const appSettings = {
+  pickupEnabled: true,
+  deliveryEnabled: false,
+  deliveryRadiusMiles: 2,
+  processingFee: 1.0,
+};
 const menuData = {
   empanadas: [
-    { id: "emp-chicken-cheese", name: "Chicken & Cheese", price: 3.0, note: "Most Poplar!" },
-    { id: "emp-steak-cheese", name: "Steak & Cheese", price: 4.0 },
-    { id: "emp-conch-lambi", name: "Conch Meat (Lambi)", price: 4.0 },
-    { id: "emp-beef-cheese", name: "Beef & Cheese", price: 3.5 },
-    { id: "emp-shrimp", name: "Shrimp", price: 3.5 },
-    { id: "emp-crab-meat", name: "Crab Meat", price: 3.5 },
-    { id: "emp-pork-cheese", name: "Pork & Cheese", price: 3.0 },
-    { id: "emp-three-cheese", name: "3 Cheese", price: 3.0, note: "Prov, Motz, Ched" },
+    {
+      id: "emp-chicken-cheese",
+      name: "Chicken & Cheese",
+      price: 3.0,
+      inStock: true,
+      note: "Most Poplar!",
+    },
+    { id: "emp-steak-cheese", name: "Steak & Cheese", price: 4.0, inStock: false },
+    { id: "emp-conch-lambi", name: "Conch Meat (Lambi)", price: 4.0, inStock: false },
+    { id: "emp-beef-cheese", name: "Beef & Cheese", price: 3.5, inStock: true },
+    { id: "emp-shrimp", name: "Shrimp", price: 3.5, inStock: true },
+    { id: "emp-crab-meat", name: "Crab Meat", price: 3.5, inStock: false },
+    { id: "emp-pork-cheese", name: "Pork & Cheese", price: 3.0, inStock: true },
+    {
+      id: "emp-three-cheese",
+      name: "3 Cheese",
+      price: 3.0,
+      inStock: true,
+      note: "Prov, Motz, Ched",
+    },
   ],
   juices: [
-    { id: "jui-passion-fruit", name: "Passion Fruit", price: 5.0, note: "Most Poplar!" },
-    { id: "jui-tamarind", name: "Tamarind", price: 5.0 },
-    { id: "jui-lemonade", name: "Lemonade", price: 5.0 },
-    { id: "jui-guanabana", name: "Guanabana", price: 5.0 },
-    { id: "jui-orange", name: "Orange", price: 5.0 },
-    { id: "jui-morir-sonando", name: "Morir Soñando", price: 6.0, note: "House Specialty" },
+    {
+      id: "jui-passion-fruit",
+      name: "Passion Fruit",
+      price: 5.0,
+      inStock: true,
+      note: "Most Poplar!",
+    },
+    { id: "jui-tamarind", name: "Tamarind", price: 5.0, inStock: true },
+    { id: "jui-lemonade", name: "Lemonade", price: 5.0, inStock: true },
+    { id: "jui-guanabana", name: "Guanabana", price: 5.0, inStock: false },
+    { id: "jui-orange", name: "Orange", price: 5.0, inStock: true },
+    {
+      id: "jui-morir-sonando",
+      name: "Morir Soñando",
+      price: 6.0,
+      inStock: true,
+      note: "House Specialty",
+    },
   ],
   sodas: [
-    { id: "soda-malta", name: "Malta", price: 2.0 },
-    { id: "soda-coke", name: "Coca-Cola", price: 1.5 },
-    { id: "soda-sprite", name: "Sprite", price: 1.5 },
-    { id: "soda-mtn-dew", name: "Mtn Dew", price: 1.5 },
-    { id: "soda-ginger-ale", name: "Ginger Ale", price: 1.5 },
-    { id: "soda-orange", name: "Orange Soda", price: 1.5 },
-    { id: "soda-grape", name: "Grape Soda", price: 1.5 },
-    { id: "soda-pepsi", name: "Pepsi", price: 1.5 },
-    { id: "soda-diet-pepsi", name: "Dieta Pepsi", price: 1.5 },
-    { id: "soda-pina", name: "Piña", price: 1.5 },
-    { id: "soda-water", name: "Water", price: 1.0 },
+    { id: "soda-malta", name: "Malta", price: 2.0, inStock: false },
+    { id: "soda-coke", name: "Coca-Cola", price: 1.5, inStock: true },
+    { id: "soda-sprite", name: "Sprite", price: 1.5, inStock: true },
+    { id: "soda-mtn-dew", name: "Mtn Dew", price: 1.5, inStock: true },
+    { id: "soda-ginger-ale", name: "Ginger Ale", price: 1.5, inStock: true },
+    { id: "soda-orange", name: "Orange Soda", price: 1.5, inStock: true },
+    { id: "soda-grape", name: "Grape Soda", price: 1.5, inStock: true },
+    { id: "soda-pepsi", name: "Pepsi", price: 1.5, inStock: true },
+    { id: "soda-diet-pepsi", name: "Dieta Pepsi", price: 1.5, inStock: true },
+    { id: "soda-pina", name: "Piña", price: 1.5, inStock: true },
+    { id: "soda-water", name: "Water", price: 1.0, inStock: true },
   ],
-  pinchos: [{ id: "pincho", name: "Pincho", price: 5.0 }],
-  quipes: [{ id: "quipe", name: "Quipe", price: 3.5 }],
-  alcapurrias: [{ id: "alcapurria", name: "Alcapurria", price: 4.0 }],
-  sorullitos: [{ id: "sorullitos", name: "Sorullitos", price: 1.0 }],
-  tresLeches: [{ id: "tres-leches", name: "Tres Leches", price: 4.0 }],
+  pinchos: [{ id: "pincho", name: "Pincho", price: 5.0, inStock: true }],
+  quipes: [{ id: "quipe", name: "Quipe", price: 3.5, inStock: true }],
+  alcapurrias: [{ id: "alcapurria", name: "Alcapurria", price: 4.0, inStock: true }],
+  sorullitos: [{ id: "sorullitos", name: "Sorullitos", price: 1.0, inStock: true }],
+  tresLeches: [{ id: "tres-leches", name: "Tres Leches", price: 4.0, inStock: true }],
 };
 
 const itemById = Object.values(menuData).reduce((acc, items) => {
@@ -49,8 +77,7 @@ const itemById = Object.values(menuData).reduce((acc, items) => {
 
 const formatMoney = (value) => `$${value.toFixed(2)}`;
 
-const getCartItemCount = (cartState) =>
-  Object.values(cartState).reduce((sum, qty) => sum + qty, 0);
+const getCartItemCount = (cartState) => Object.values(cartState).reduce((sum, qty) => sum + qty, 0);
 
 const getCartSubtotal = (cartState) =>
   Object.entries(cartState).reduce((sum, [id, qty]) => {
@@ -61,7 +88,7 @@ const getCartSubtotal = (cartState) =>
 
 const calculateTotals = (cartState) => {
   const subtotal = getCartSubtotal(cartState);
-  const processingFee = subtotal > 0 ? PROCESSING_FEE : 0;
+  const processingFee = subtotal > 0 ? appSettings.processingFee : 0;
   const tax = 0;
   const total = subtotal + processingFee + tax;
   return { subtotal, processingFee, tax, total };
@@ -84,6 +111,23 @@ const loadCart = () => {
 
 const saveCart = (cartState) => {
   localStorage.setItem(CART_KEY, JSON.stringify(cartState));
+};
+
+const sanitizeCartForStock = (cartState) =>
+  Object.entries(cartState).reduce((acc, [id, qty]) => {
+    const item = itemById[id];
+    if (!item || item.inStock === false) return acc;
+    if (Number.isFinite(qty) && qty > 0) {
+      acc[id] = Math.floor(qty);
+    }
+    return acc;
+  }, {});
+
+const areCartsEqual = (a, b) => {
+  const aKeys = Object.keys(a);
+  const bKeys = Object.keys(b);
+  if (aKeys.length !== bKeys.length) return false;
+  return aKeys.every((key) => a[key] === b[key]);
 };
 
 const clearCart = () => {
@@ -122,19 +166,20 @@ const renderQtyControlMarkup = (qty, allowAdd) => {
 };
 
 const renderMenuItemMarkup = (item, cartState) => {
-  const noteMarkup = item.note
-    ? `<small class="${getNoteClass(item.note)}">${item.note}</small>`
-    : "";
+  const noteMarkup = item.note ? `<small class="${getNoteClass(item.note)}">${item.note}</small>` : "";
   const qty = getQty(cartState, item.id);
+  const soldOutBadge = item.inStock ? "" : '<span class="menu-item__soldout-badge">Sold out</span>';
+  const qtyControlMarkup = item.inStock ? renderQtyControlMarkup(qty, true) : "";
   return `
-    <li class="menu-item" data-id="${item.id}">
+    <li class="menu-item${item.inStock ? "" : " menu-item--soldout"}" data-id="${item.id}">
       <span class="menu-item__left">
         <span class="menu-item__name">${item.name}</span>
         ${noteMarkup}
       </span>
       <span class="menu-item__right">
         <span class="menu-item__price">${formatMoney(item.price)}</span>
-        <span class="qty-control">${renderQtyControlMarkup(qty, true)}</span>
+        ${soldOutBadge}
+        <span class="qty-control">${qtyControlMarkup}</span>
       </span>
     </li>
   `;
@@ -180,6 +225,12 @@ const renderCartList = (cartState) => {
 };
 
 const updateMenuItemQtyById = (id, qty) => {
+  const item = itemById[id];
+  if (!item) return;
+  if (item.inStock === false) {
+    renderAllMenus(cart);
+    return;
+  }
   document.querySelectorAll(`.menu-item[data-id="${id}"]`).forEach((itemEl) => {
     const control = itemEl.querySelector(".qty-control");
     if (!control) return;
@@ -232,6 +283,13 @@ const updateCartBar = (cartState) => {
 };
 
 const syncUIAfterCartChange = (cartState, changedId) => {
+  const sanitizedCart = sanitizeCartForStock(cartState);
+  if (!areCartsEqual(cartState, sanitizedCart)) {
+    cart = sanitizedCart;
+    saveCart(cart);
+    cartState = cart;
+    changedId = null;
+  }
   if (changedId) {
     updateMenuItemQtyById(changedId, getQty(cartState, changedId));
   } else {
@@ -261,11 +319,19 @@ const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
 const modalBackdrops = document.querySelectorAll(".modal");
 const menuButton = document.querySelector("[data-scroll-menu]");
 const cartModal = document.querySelector("#cart-modal");
+const checkoutModal = document.querySelector("#checkout-modal");
+const checkoutNote = document.querySelector("[data-checkout-note]");
+const checkoutPickup = document.querySelector("[data-checkout-pickup]");
+const checkoutDelivery = document.querySelector("[data-checkout-delivery]");
+const checkoutPickupOption = document.querySelector("[data-checkout-pickup-option]");
+const checkoutDeliveryOption = document.querySelector("[data-checkout-delivery-option]");
 
 const initMenus = () => {
-  cart = loadCart();
+  cart = sanitizeCartForStock(loadCart());
+  saveCart(cart);
   renderAllMenus(cart);
   syncUIAfterCartChange(cart);
+  updateCheckoutUI();
 };
 
 // Open a modal and lock page scroll.
@@ -273,6 +339,9 @@ const openModal = (modal) => {
   if (!modal) return;
   modal.classList.add("is-open");
   document.body.style.overflow = "hidden";
+  if (modal === checkoutModal) {
+    updateCheckoutUI();
+  }
 };
 
 // Close a modal and restore scroll if none are open.
@@ -281,6 +350,30 @@ const closeModal = (modal) => {
   modal.classList.remove("is-open");
   if (!document.querySelector(".modal.is-open")) {
     document.body.style.overflow = "";
+  }
+};
+
+const updateCheckoutUI = () => {
+  if (!checkoutModal) return;
+  const deliveryEnabled = appSettings.deliveryEnabled;
+  const pickupEnabled = appSettings.pickupEnabled;
+
+  if (checkoutDeliveryOption) checkoutDeliveryOption.hidden = !deliveryEnabled;
+  if (checkoutDelivery) checkoutDelivery.disabled = !deliveryEnabled;
+  if (checkoutPickup) checkoutPickup.disabled = !pickupEnabled;
+
+  if (checkoutNote) {
+    checkoutNote.hidden = !(!deliveryEnabled && pickupEnabled);
+  }
+
+  if (pickupEnabled && !deliveryEnabled && checkoutPickup) {
+    checkoutPickup.checked = true;
+  } else if (!pickupEnabled && deliveryEnabled && checkoutDelivery) {
+    checkoutDelivery.checked = true;
+  } else if (pickupEnabled && deliveryEnabled && checkoutPickup && checkoutDelivery) {
+    if (!checkoutPickup.checked && !checkoutDelivery.checked) {
+      checkoutPickup.checked = true;
+    }
   }
 };
 
@@ -325,6 +418,12 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const openCheckout = event.target.closest("[data-open-checkout]");
+  if (openCheckout) {
+    openModal(checkoutModal);
+    return;
+  }
+
   const clearCartButton = event.target.closest("[data-clear-cart]");
   if (clearCartButton) {
     if (getCartItemCount(cart) === 0) return;
@@ -343,6 +442,11 @@ document.addEventListener("click", (event) => {
   if (!id) return;
 
   const action = actionEl.dataset.action;
+  const item = itemById[id];
+  if ((action === "add" || action === "increase") && item && item.inStock === false) {
+    alert("This item is currently sold out.");
+    return;
+  }
   if (action === "add") {
     setQty(cart, id, 1);
   } else if (action === "increase") {
