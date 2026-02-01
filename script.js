@@ -86,6 +86,12 @@ const saveCart = (cartState) => {
   localStorage.setItem(CART_KEY, JSON.stringify(cartState));
 };
 
+const clearCart = () => {
+  cart = {};
+  localStorage.removeItem(CART_KEY);
+  syncUIAfterCartChange(cart);
+};
+
 const getQty = (cartState, id) => cartState[id] || 0;
 
 const setQty = (cartState, id, qty) => {
@@ -195,6 +201,12 @@ const updateCartTotals = (cartState) => {
   if (totalEl) totalEl.textContent = formatMoney(total);
 };
 
+const updateClearCartButton = (cartState) => {
+  const clearButton = document.querySelector("[data-clear-cart]");
+  if (!clearButton) return;
+  clearButton.disabled = getCartItemCount(cartState) === 0;
+};
+
 const updateCartBar = (cartState) => {
   const cartBar = document.querySelector("[data-cart-bar]");
   if (!cartBar) return;
@@ -227,6 +239,7 @@ const syncUIAfterCartChange = (cartState, changedId) => {
   }
   renderCartList(cartState);
   updateCartTotals(cartState);
+  updateClearCartButton(cartState);
   updateCartBar(cartState);
 };
 
@@ -309,6 +322,16 @@ document.addEventListener("click", (event) => {
   const openCart = event.target.closest("[data-open-cart]");
   if (openCart) {
     openModal(cartModal);
+    return;
+  }
+
+  const clearCartButton = event.target.closest("[data-clear-cart]");
+  if (clearCartButton) {
+    if (getCartItemCount(cart) === 0) return;
+    const ok = window.confirm("Clear your order? This will remove all items.");
+    if (ok) {
+      clearCart();
+    }
     return;
   }
 
