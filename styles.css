@@ -499,6 +499,66 @@ a {
   padding: 12px 0;
   border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
+.menu-item {
+  align-items: center;
+  gap: 12px;
+}
+.menu-item__left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.menu-item__name {
+  font-weight: 600;
+}
+.menu-item__note {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #c62828;
+}
+.menu-item__note--compact {
+  font-size: 0.7rem;
+}
+.menu-item__right {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.menu-item__price {
+  font-weight: 700;
+  color: #7a4a00;
+}
+.qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.qty-control__add,
+.qty-control__btn {
+  border: 2px solid #c62828;
+  background: #fff3c4;
+  color: #c62828;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.qty-control__btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-control__qty {
+  min-width: 16px;
+  text-align: center;
+  font-weight: 700;
+  color: #111111;
+}
 .price-list__note {
   display: inline-block;
   margin-top: 4px;
