@@ -1,7 +1,7 @@
 const CART_KEY = "decoo_cart";
 const appSettings = {
   pickupEnabled: true,
-  deliveryEnabled: false,
+  deliveryEnabled: true,
   deliveryRadiusMiles: 2,
   processingFee: 1.0,
 };
@@ -252,6 +252,24 @@ const updateCartTotals = (cartState) => {
   if (totalEl) totalEl.textContent = formatMoney(total);
 };
 
+const updateTotalsBlock = (container, totals) => {
+  if (!container || !totals) return;
+  const subtotalEl = container.querySelector("[data-subtotal]");
+  const feeEl = container.querySelector("[data-fee]");
+  const taxEl = container.querySelector("[data-tax]");
+  const totalEl = container.querySelector("[data-total]");
+  if (subtotalEl) subtotalEl.textContent = formatMoney(totals.subtotal);
+  if (feeEl) feeEl.textContent = formatMoney(totals.processingFee);
+  if (taxEl) taxEl.textContent = formatMoney(totals.tax);
+  if (totalEl) totalEl.textContent = formatMoney(totals.total);
+};
+
+const updateCheckoutButton = (cartState) => {
+  const checkoutButton = document.querySelector("[data-open-checkout]");
+  if (!checkoutButton) return;
+  checkoutButton.disabled = false;
+};
+
 const updateClearCartButton = (cartState) => {
   const clearButton = document.querySelector("[data-clear-cart]");
   if (!clearButton) return;
@@ -298,6 +316,7 @@ const syncUIAfterCartChange = (cartState, changedId) => {
   renderCartList(cartState);
   updateCartTotals(cartState);
   updateClearCartButton(cartState);
+  updateCheckoutButton(cartState);
   updateCartBar(cartState);
 };
 
@@ -320,18 +339,35 @@ const modalBackdrops = document.querySelectorAll(".modal");
 const menuButton = document.querySelector("[data-scroll-menu]");
 const cartModal = document.querySelector("#cart-modal");
 const checkoutModal = document.querySelector("#checkout-modal");
-const checkoutNote = document.querySelector("[data-checkout-note]");
-const checkoutPickup = document.querySelector("[data-checkout-pickup]");
-const checkoutDelivery = document.querySelector("[data-checkout-delivery]");
-const checkoutPickupOption = document.querySelector("[data-checkout-pickup-option]");
-const checkoutDeliveryOption = document.querySelector("[data-checkout-delivery-option]");
+const confirmationModal = document.querySelector("#confirmation-modal");
+const checkoutError = document.querySelector("[data-checkout-error]");
+const checkoutStepsLabel = document.querySelector("[data-checkout-steps]");
+const deliveryDisabledMsg = document.querySelector("[data-delivery-disabled-msg]");
+const deliveryAddressField = document.querySelector("[data-delivery-address-field]");
+const checkoutFieldName = document.querySelector('[data-field="name"]');
+const checkoutFieldPhone = document.querySelector('[data-field="phone"]');
+const checkoutFieldAddress = document.querySelector('[data-field="address"]');
+const checkoutFieldNotes = document.querySelector('[data-field="notes"]');
+const checkoutSummary = document.querySelector("[data-checkout-summary]");
+const checkoutTotals = document.querySelector("[data-checkout-totals]");
+const confirmationSummary = document.querySelector("[data-confirmation-summary]");
+const confirmationTotals = document.querySelector("[data-confirmation-totals]");
+const confirmationOrderId = document.querySelector("[data-order-id]");
+const closeConfirmationButton = document.querySelector("[data-close-confirmation]");
+
+let checkoutState = {
+  name: "",
+  phone: "",
+  orderType: "pickup",
+  address: "",
+  notes: "",
+};
 
 const initMenus = () => {
   cart = sanitizeCartForStock(loadCart());
   saveCart(cart);
   renderAllMenus(cart);
   syncUIAfterCartChange(cart);
-  updateCheckoutUI();
 };
 
 // Open a modal and lock page scroll.
@@ -339,9 +375,6 @@ const openModal = (modal) => {
   if (!modal) return;
   modal.classList.add("is-open");
   document.body.style.overflow = "hidden";
-  if (modal === checkoutModal) {
-    updateCheckoutUI();
-  }
 };
 
 // Close a modal and restore scroll if none are open.
@@ -353,28 +386,129 @@ const closeModal = (modal) => {
   }
 };
 
-const updateCheckoutUI = () => {
+const hydrateCheckoutInputsFromState = () => {
+  if (checkoutFieldName) checkoutFieldName.value = checkoutState.name;
+  if (checkoutFieldPhone) checkoutFieldPhone.value = checkoutState.phone;
+  if (checkoutFieldAddress) checkoutFieldAddress.value = checkoutState.address;
+  if (checkoutFieldNotes) checkoutFieldNotes.value = checkoutState.notes;
+};
+
+const setCheckoutStep = (step) => {
+  const stepDetails = document.querySelector('[data-checkout-step="details"]');
+  const stepReview = document.querySelector('[data-checkout-step="review"]');
+  if (stepDetails) stepDetails.hidden = step !== "details";
+  if (stepReview) stepReview.hidden = step !== "review";
+  if (checkoutStepsLabel) {
+    checkoutStepsLabel.textContent = step === "review" ? "Step 2 of 2: Review" : "Step 1 of 2: Details";
+  }
+};
+
+function updateCheckoutUI() {
+  const addressField = document.querySelector("[data-delivery-address-field]");
+  const addressInput = addressField?.querySelector('input[data-field="address"]');
+
+  const pickupBtn = document.querySelector('[data-set-order-type="pickup"]');
+  const deliveryBtn = document.querySelector('[data-set-order-type="delivery"]');
+  const disabledMsg = document.querySelector("[data-delivery-disabled-msg]");
+
+  if (!appSettings.deliveryEnabled) {
+    checkoutState.orderType = "pickup";
+    if (deliveryBtn) deliveryBtn.disabled = true;
+    if (disabledMsg) disabledMsg.hidden = false;
+
+    if (addressField) addressField.hidden = true;
+    if (addressInput) addressInput.required = false;
+  } else {
+    if (deliveryBtn) deliveryBtn.disabled = false;
+    if (disabledMsg) disabledMsg.hidden = true;
+
+    const shouldShowAddress = checkoutState.orderType === "delivery";
+    if (addressField) addressField.hidden = !shouldShowAddress;
+    if (addressInput) addressInput.required = shouldShowAddress;
+  }
+
+  if (pickupBtn) {
+    pickupBtn.classList.toggle("is-active", checkoutState.orderType === "pickup");
+    pickupBtn.classList.toggle("segmented__btn--active", checkoutState.orderType === "pickup");
+  }
+  if (deliveryBtn) {
+    deliveryBtn.classList.toggle("is-active", checkoutState.orderType === "delivery");
+    deliveryBtn.classList.toggle("segmented__btn--active", checkoutState.orderType === "delivery");
+  }
+}
+
+const renderCheckoutSummary = (targetUl, cartState) => {
+  if (!targetUl) return;
+  const entries = Object.entries(cartState);
+  if (entries.length === 0) {
+    targetUl.innerHTML = '<li class="cart-empty">Your cart is empty</li>';
+    return;
+  }
+  targetUl.innerHTML = entries
+    .map(([id, qty]) => {
+      const item = itemById[id];
+      if (!item) return "";
+      const lineTotal = item.price * qty;
+      return `
+        <li>
+          <span>${item.name} × ${qty}</span>
+          <span>${formatMoney(lineTotal)}</span>
+        </li>
+      `;
+    })
+    .join("");
+};
+
+const openCheckout = () => {
   if (!checkoutModal) return;
-  const deliveryEnabled = appSettings.deliveryEnabled;
-  const pickupEnabled = appSettings.pickupEnabled;
 
-  if (checkoutDeliveryOption) checkoutDeliveryOption.hidden = !deliveryEnabled;
-  if (checkoutDelivery) checkoutDelivery.disabled = !deliveryEnabled;
-  if (checkoutPickup) checkoutPickup.disabled = !pickupEnabled;
-
-  if (checkoutNote) {
-    checkoutNote.hidden = !(!deliveryEnabled && pickupEnabled);
+  const sanitizedCart = sanitizeCartForStock(cart);
+  if (!areCartsEqual(cart, sanitizedCart)) {
+    cart = sanitizedCart;
+    saveCart(cart);
+    syncUIAfterCartChange(cart);
   }
 
-  if (pickupEnabled && !deliveryEnabled && checkoutPickup) {
-    checkoutPickup.checked = true;
-  } else if (!pickupEnabled && deliveryEnabled && checkoutDelivery) {
-    checkoutDelivery.checked = true;
-  } else if (pickupEnabled && deliveryEnabled && checkoutPickup && checkoutDelivery) {
-    if (!checkoutPickup.checked && !checkoutDelivery.checked) {
-      checkoutPickup.checked = true;
-    }
+  if (getCartItemCount(cart) === 0) {
+    alert("Your cart is empty.");
+    return;
   }
+
+  if (checkoutError) checkoutError.hidden = true;
+  setCheckoutStep("details");
+  hydrateCheckoutInputsFromState();
+  updateCheckoutUI();
+  openModal(checkoutModal);
+};
+
+const readCheckoutFields = () => {
+  checkoutState.name = (checkoutFieldName?.value || "").trim();
+  checkoutState.phone = (checkoutFieldPhone?.value || "").trim();
+  checkoutState.address = (checkoutFieldAddress?.value || "").trim();
+  checkoutState.notes = (checkoutFieldNotes?.value || "").trim();
+};
+
+const validateCheckoutDetails = () => {
+  if (getCartItemCount(cart) === 0) {
+    return "Your cart is empty. Add items before checking out.";
+  }
+  if (checkoutState.name.length === 0) {
+    return "Please enter your name.";
+  }
+  if (checkoutState.phone.length === 0) {
+    return "Please enter a valid phone number.";
+  }
+  const needsAddress = appSettings.deliveryEnabled && checkoutState.orderType === "delivery";
+  if (needsAddress && checkoutState.address.length === 0) {
+    return "Delivery address is required for delivery orders.";
+  }
+  return "";
+};
+
+const renderConfirmation = (orderId, cartSnapshot, totals) => {
+  if (confirmationOrderId) confirmationOrderId.textContent = orderId;
+  renderCheckoutSummary(confirmationSummary, cartSnapshot);
+  updateTotalsBlock(confirmationTotals, totals);
 };
 
 // Wire each menu/drink card to its modal.
@@ -418,9 +552,77 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  const openCheckout = event.target.closest("[data-open-checkout]");
-  if (openCheckout) {
-    openModal(checkoutModal);
+  const openCheckoutButton = event.target.closest("[data-open-checkout]");
+  if (openCheckoutButton) {
+    openCheckout();
+    return;
+  }
+
+  const setOrderTypeButton = event.target.closest("[data-set-order-type]");
+  if (setOrderTypeButton) {
+    const nextType = setOrderTypeButton.dataset.setOrderType;
+    if (nextType === "delivery" && !appSettings.deliveryEnabled) return;
+    if (nextType) {
+      checkoutState.orderType = nextType;
+      updateCheckoutUI();
+    }
+    return;
+  }
+
+  const continueCheckout = event.target.closest("[data-checkout-continue]");
+  if (continueCheckout) {
+    readCheckoutFields();
+    const errorMessage = validateCheckoutDetails();
+    if (errorMessage) {
+      if (checkoutError) {
+        checkoutError.textContent = errorMessage;
+        checkoutError.hidden = false;
+      }
+      return;
+    }
+    if (checkoutError) checkoutError.hidden = true;
+    setCheckoutStep("review");
+    renderCheckoutSummary(checkoutSummary, cart);
+    updateTotalsBlock(checkoutTotals, calculateTotals(cart));
+    return;
+  }
+
+  const backCheckout = event.target.closest("[data-checkout-back]");
+  if (backCheckout) {
+    setCheckoutStep("details");
+    updateCheckoutUI();
+    return;
+  }
+
+  const placeOrder = event.target.closest("[data-place-order]");
+  if (placeOrder) {
+    if (getCartItemCount(cart) === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+    readCheckoutFields();
+    const errorMessage = validateCheckoutDetails();
+    if (errorMessage) {
+      if (checkoutError) {
+        checkoutError.textContent = errorMessage;
+        checkoutError.hidden = false;
+      }
+      return;
+    }
+    if (checkoutError) checkoutError.hidden = true;
+    const orderId = `#${Math.floor(10000 + Math.random() * 90000)}`;
+    const cartSnapshot = { ...cart };
+    const totals = calculateTotals(cartSnapshot);
+    renderConfirmation(orderId, cartSnapshot, totals);
+    clearCart();
+    closeModal(checkoutModal);
+    openModal(confirmationModal);
+    return;
+  }
+
+  const closeConfirmation = event.target.closest("[data-close-confirmation]");
+  if (closeConfirmation) {
+    closeModal(confirmationModal);
     return;
   }
 

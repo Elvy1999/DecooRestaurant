@@ -464,6 +464,98 @@ a {
   }
 }
 
+.checkout-steps {
+  margin: 0 0 $space-3;
+  font-weight: 600;
+  color: rgba($color-black, 0.7);
+}
+
+.checkout-step {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  font-weight: 600;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: $radius-sm;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-family: $font-body;
+}
+
+.field__hint {
+  margin: $space-1 0 0;
+  font-size: 0.95rem;
+  color: rgba($color-black, 0.7);
+}
+
+.form-error {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: $radius-sm;
+  background: rgba($color-red, 0.12);
+  color: $color-red-dark;
+  font-weight: 600;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-2;
+  margin-top: $space-1;
+}
+
+.segmented__btn {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+  padding: 10px 12px;
+  font-weight: 700;
+  background: $color-white;
+  cursor: pointer;
+}
+
+.segmented__btn--active {
+  border-color: $color-red;
+  background: rgba($color-red, 0.08);
+  color: $color-red-dark;
+}
+
+.checkout-summary {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $space-3;
+  display: grid;
+  gap: $space-2;
+}
+
+.checkout-summary li {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-3;
+  font-weight: 600;
+}
+
+.checkout-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-2;
+}
+
+.confirmation-note {
+  margin-top: $space-3;
+  font-weight: 600;
+  color: rgba($color-black, 0.7);
+}
+
 .price-list {
   list-style: none;
   padding: 0;

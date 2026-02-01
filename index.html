@@ -229,21 +229,92 @@
       <div class="modal__content" role="dialog" aria-modal="true">
         <button class="modal__close" type="button" data-modal-close>X</button>
         <h3>Checkout</h3>
-        <div class="checkout">
-          <p class="checkout__note" data-checkout-note hidden>
-            Delivery unavailable right now — Pickup only.
-          </p>
-          <div class="checkout__options" role="radiogroup" aria-label="Fulfillment method">
-            <label class="checkout__option" data-checkout-pickup-option>
-              <input type="radio" name="fulfillment" value="pickup" data-checkout-pickup />
-              <span>Pickup</span>
-            </label>
-            <label class="checkout__option" data-checkout-delivery-option>
-              <input type="radio" name="fulfillment" value="delivery" data-checkout-delivery />
-              <span>Delivery</span>
-            </label>
+        <p class="checkout-steps" data-checkout-steps>Step 1 of 2: Details</p>
+
+        <div class="checkout-step" data-checkout-step="details">
+          <label class="field">
+            <span>Name *</span>
+            <input type="text" data-field="name" autocomplete="name" />
+          </label>
+
+          <label class="field">
+            <span>Phone *</span>
+            <input type="tel" data-field="phone" autocomplete="tel" inputmode="tel" />
+          </label>
+
+          <div class="field">
+            <span>Order Type *</span>
+            <div class="segmented" data-order-type>
+              <button type="button" class="segmented__btn" data-set-order-type="pickup">Pickup</button>
+              <button type="button" class="segmented__btn" data-set-order-type="delivery">Delivery</button>
+            </div>
+            <p class="field__hint" data-delivery-disabled-msg hidden>
+              Delivery unavailable right now — Pickup only.
+            </p>
+          </div>
+
+          <label class="field" data-delivery-address-field hidden>
+            <span>Delivery Address *</span>
+            <input type="text" data-field="address" autocomplete="street-address" />
+          </label>
+
+          <label class="field">
+            <span>Notes (optional)</span>
+            <textarea data-field="notes" rows="3" placeholder="Allergies, spice level, etc."></textarea>
+          </label>
+
+          <p class="form-error" data-checkout-error hidden></p>
+
+          <button type="button" class="btn btn--primary" data-checkout-continue>
+            Continue
+          </button>
+        </div>
+
+        <div class="checkout-step" data-checkout-step="review" hidden>
+          <ul class="checkout-summary" data-checkout-summary></ul>
+
+          <div class="totals" data-checkout-totals>
+            <div class="totals__row"><span>Subtotal</span><span data-subtotal>$0.00</span></div>
+            <div class="totals__row"><span>Processing fee</span><span data-fee>$0.00</span></div>
+            <div class="totals__row"><span>Tax</span><span data-tax>$0.00</span></div>
+            <div class="totals__divider"></div>
+            <div class="totals__row totals__row--total"><span>Total</span><span data-total>$0.00</span></div>
+            <p class="totals__note">No additional taxes applied</p>
+          </div>
+
+          <div class="checkout-actions">
+            <button type="button" class="btn btn--ghost" data-checkout-back>Back</button>
+            <button type="button" class="btn btn--primary" data-place-order>Place Order</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="modal" id="confirmation-modal" aria-hidden="true">
+      <div class="modal__content" role="dialog" aria-modal="true">
+        <button class="modal__close" type="button" data-modal-close>X</button>
+        <h3>Order received ✅</h3>
+
+        <p>Your order number is <strong data-order-id>#00000</strong></p>
+
+        <ul class="checkout-summary" data-confirmation-summary></ul>
+
+        <div class="totals" data-confirmation-totals>
+          <div class="totals__row"><span>Subtotal</span><span data-subtotal>$0.00</span></div>
+          <div class="totals__row"><span>Processing fee</span><span data-fee>$0.00</span></div>
+          <div class="totals__row"><span>Tax</span><span data-tax>$0.00</span></div>
+          <div class="totals__divider"></div>
+          <div class="totals__row totals__row--total"><span>Total</span><span data-total>$0.00</span></div>
+          <p class="totals__note">No additional taxes applied</p>
+        </div>
+
+        <p class="confirmation-note">
+          We’ll contact you when your order is ready.
+        </p>
+
+        <button type="button" class="btn btn--primary" data-close-confirmation>
+          Done
+        </button>
       </div>
     </div>
 
