@@ -1,4 +1,5 @@
 const CART_KEY = "decoo_cart";
+const PROCESSING_FEE = 1.0;
 
 const menuData = {
   empanadas: [
@@ -39,19 +40,39 @@ const menuData = {
   tresLeches: [{ id: "tres-leches", name: "Tres Leches", price: 4.0 }],
 };
 
-const menuIndex = Object.values(menuData).reduce((acc, items) => {
+const itemById = Object.values(menuData).reduce((acc, items) => {
   items.forEach((item) => {
     acc[item.id] = item;
   });
   return acc;
 }, {});
 
+const formatMoney = (value) => `$${value.toFixed(2)}`;
+
+const getCartItemCount = (cartState) =>
+  Object.values(cartState).reduce((sum, qty) => sum + qty, 0);
+
+const getCartSubtotal = (cartState) =>
+  Object.entries(cartState).reduce((sum, [id, qty]) => {
+    const item = itemById[id];
+    if (!item) return sum;
+    return sum + item.price * qty;
+  }, 0);
+
+const calculateTotals = (cartState) => {
+  const subtotal = getCartSubtotal(cartState);
+  const processingFee = subtotal > 0 ? PROCESSING_FEE : 0;
+  const tax = 0;
+  const total = subtotal + processingFee + tax;
+  return { subtotal, processingFee, tax, total };
+};
+
 const loadCart = () => {
   try {
     const stored = JSON.parse(localStorage.getItem(CART_KEY));
     if (!stored || typeof stored !== "object") return {};
     return Object.entries(stored).reduce((acc, [id, qty]) => {
-      if (menuIndex[id] && Number.isFinite(qty) && qty > 0) {
+      if (itemById[id] && Number.isFinite(qty) && qty > 0) {
         acc[id] = Math.floor(qty);
       }
       return acc;
@@ -61,50 +82,44 @@ const loadCart = () => {
   }
 };
 
-const saveCart = () => {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+const saveCart = (cartState) => {
+  localStorage.setItem(CART_KEY, JSON.stringify(cartState));
 };
 
-const getQty = (id) => cart[id] || 0;
+const getQty = (cartState, id) => cartState[id] || 0;
 
-const setQty = (id, qty) => {
-  if (!menuIndex[id]) return;
+const setQty = (cartState, id, qty) => {
+  if (!itemById[id]) return;
   if (qty <= 0) {
-    delete cart[id];
+    delete cartState[id];
     return;
   }
-  cart[id] = qty;
+  cartState[id] = qty;
 };
 
-const increment = (id) => setQty(id, getQty(id) + 1);
-const decrement = (id) => setQty(id, getQty(id) - 1);
-
-const getCartSubtotal = () =>
-  Object.entries(cart).reduce((sum, [id, qty]) => {
-    const item = menuIndex[id];
-    if (!item) return sum;
-    return sum + item.price * qty;
-  }, 0);
-
-const formatPrice = (price) => `$${price.toFixed(2)}`;
+const increment = (cartState, id) => setQty(cartState, id, getQty(cartState, id) + 1);
+const decrement = (cartState, id) => setQty(cartState, id, getQty(cartState, id) - 1);
 
 const getNoteClass = (note) =>
   note === "Prov, Motz, Ched" ? "menu-item__note menu-item__note--compact" : "menu-item__note";
 
-const renderQtyControlMarkup = (qty) =>
-  qty > 0
-    ? `
+const renderQtyControlMarkup = (qty, allowAdd) => {
+  if (qty > 0) {
+    return `
       <button class="qty-control__btn" type="button" data-action="decrease" aria-label="Decrease quantity">-</button>
       <span class="qty-control__qty">${qty}</span>
       <button class="qty-control__btn" type="button" data-action="increase" aria-label="Increase quantity">+</button>
-    `
-    : `<button class="qty-control__add" type="button" data-action="add">Add</button>`;
+    `;
+  }
+  if (!allowAdd) return "";
+  return `<button class="qty-control__add" type="button" data-action="add">Add</button>`;
+};
 
-const renderMenuItemMarkup = (item) => {
+const renderMenuItemMarkup = (item, cartState) => {
   const noteMarkup = item.note
     ? `<small class="${getNoteClass(item.note)}">${item.note}</small>`
     : "";
-  const qty = getQty(item.id);
+  const qty = getQty(cartState, item.id);
   return `
     <li class="menu-item" data-id="${item.id}">
       <span class="menu-item__left">
@@ -112,30 +127,107 @@ const renderMenuItemMarkup = (item) => {
         ${noteMarkup}
       </span>
       <span class="menu-item__right">
-        <span class="menu-item__price">${formatPrice(item.price)}</span>
-        <span class="qty-control">${renderQtyControlMarkup(qty)}</span>
+        <span class="menu-item__price">${formatMoney(item.price)}</span>
+        <span class="qty-control">${renderQtyControlMarkup(qty, true)}</span>
       </span>
     </li>
   `;
 };
 
-const renderMenuList = (listEl, items) => {
-  listEl.innerHTML = items.map(renderMenuItemMarkup).join("");
+const renderMenuList = (listEl, items, cartState) => {
+  listEl.innerHTML = items.map((item) => renderMenuItemMarkup(item, cartState)).join("");
 };
 
-const renderAllMenus = () => {
+const renderAllMenus = (cartState) => {
   document.querySelectorAll("[data-menu-list]").forEach((listEl) => {
     const key = listEl.dataset.menuList;
     const items = menuData[key];
     if (!items) return;
-    renderMenuList(listEl, items);
+    renderMenuList(listEl, items, cartState);
   });
 };
 
-const updateMenuItemQty = (itemEl, qty) => {
-  const control = itemEl.querySelector(".qty-control");
-  if (!control) return;
-  control.innerHTML = renderQtyControlMarkup(qty);
+const renderCartList = (cartState) => {
+  const listEl = document.querySelector("[data-cart-list]");
+  if (!listEl) return;
+  const entries = Object.entries(cartState);
+  if (entries.length === 0) {
+    listEl.innerHTML = '<li class="cart-empty">Your cart is empty</li>';
+    return;
+  }
+
+  listEl.innerHTML = entries
+    .map(([id, qty]) => {
+      const item = itemById[id];
+      if (!item) return "";
+      return `
+        <li class="cart-item" data-id="${id}">
+          <span class="cart-item__name">${item.name}</span>
+          <span class="cart-item__price">${formatMoney(item.price)}</span>
+          <div class="qty-control">
+            ${renderQtyControlMarkup(qty, false)}
+          </div>
+        </li>
+      `;
+    })
+    .join("");
+};
+
+const updateMenuItemQtyById = (id, qty) => {
+  document.querySelectorAll(`.menu-item[data-id="${id}"]`).forEach((itemEl) => {
+    const control = itemEl.querySelector(".qty-control");
+    if (!control) return;
+    control.innerHTML = renderQtyControlMarkup(qty, true);
+  });
+};
+
+const updateCartTotals = (cartState) => {
+  const totalsEl = document.querySelector("[data-cart-totals]");
+  if (!totalsEl) return;
+  const { subtotal, processingFee, tax, total } = calculateTotals(cartState);
+  const subtotalEl = totalsEl.querySelector("[data-subtotal]");
+  const feeEl = totalsEl.querySelector("[data-fee]");
+  const taxEl = totalsEl.querySelector("[data-tax]");
+  const totalEl = totalsEl.querySelector("[data-total]");
+  if (subtotalEl) subtotalEl.textContent = formatMoney(subtotal);
+  if (feeEl) feeEl.textContent = formatMoney(processingFee);
+  if (taxEl) taxEl.textContent = formatMoney(tax);
+  if (totalEl) totalEl.textContent = formatMoney(total);
+};
+
+const updateCartBar = (cartState) => {
+  const cartBar = document.querySelector("[data-cart-bar]");
+  if (!cartBar) return;
+  const countEl = cartBar.querySelector("[data-cart-count]");
+  const totalEl = cartBar.querySelector("[data-cart-total]");
+  const itemCount = getCartItemCount(cartState);
+  const { total } = calculateTotals(cartState);
+
+  if (countEl) countEl.textContent = itemCount;
+  if (totalEl) totalEl.textContent = formatMoney(total);
+
+  if (itemCount === 0) {
+    cartBar.hidden = true;
+    document.body.style.paddingBottom = "";
+    return;
+  }
+
+  cartBar.hidden = false;
+  requestAnimationFrame(() => {
+    const barHeight = cartBar.offsetHeight || 0;
+    document.body.style.paddingBottom = `${barHeight + 12}px`;
+  });
+};
+
+const syncUIAfterCartChange = (cartState, changedId) => {
+  if (changedId) {
+    updateMenuItemQtyById(changedId, getQty(cartState, changedId));
+  } else {
+    renderAllMenus(cartState);
+  }
+  renderCartList(cartState);
+  updateCartTotals(cartState);
+  updateCartBar(cartState);
 };
 
 let cart = loadCart();
@@ -155,10 +247,12 @@ const modalPairs = [
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
 const modalBackdrops = document.querySelectorAll(".modal");
 const menuButton = document.querySelector("[data-scroll-menu]");
+const cartModal = document.querySelector("#cart-modal");
 
 const initMenus = () => {
   cart = loadCart();
-  renderAllMenus();
+  renderAllMenus(cart);
+  syncUIAfterCartChange(cart);
 };
 
 // Open a modal and lock page scroll.
@@ -212,26 +306,32 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("click", (event) => {
+  const openCart = event.target.closest("[data-open-cart]");
+  if (openCart) {
+    openModal(cartModal);
+    return;
+  }
+
   const actionEl = event.target.closest("[data-action]");
   if (!actionEl) return;
-  const itemEl = actionEl.closest(".menu-item");
+  const itemEl = actionEl.closest("[data-id]");
   if (!itemEl) return;
   const id = itemEl.dataset.id;
   if (!id) return;
 
   const action = actionEl.dataset.action;
   if (action === "add") {
-    setQty(id, 1);
+    setQty(cart, id, 1);
   } else if (action === "increase") {
-    increment(id);
+    increment(cart, id);
   } else if (action === "decrease") {
-    decrement(id);
+    decrement(cart, id);
   } else {
     return;
   }
 
-  saveCart();
-  updateMenuItemQty(itemEl, getQty(id));
+  saveCart(cart);
+  syncUIAfterCartChange(cart, id);
 });
 
 // Smooth scroll for the hero "View Menu" button.
