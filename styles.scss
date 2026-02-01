@@ -407,7 +407,7 @@ a {
 
 .footer {
   text-align: center;
-  padding: $space-4 0;
+  padding: $space-4 0 0;
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -763,5 +763,12 @@ a {
 
   .cart-item__price {
     justify-self: start;
+  }
+}
+
+@media (min-width: 1440px) {
+  .cart-bar {
+    justify-content: center;
+    gap: $space-6;
   }
 }

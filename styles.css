@@ -402,7 +402,7 @@ a {
 
 .footer {
   text-align: center;
-  padding: 12px 0;
+  padding: 12px 0 0;
   font-size: 0.9rem;
   color: #2a2a2a;
   background: #ffffff;
@@ -898,6 +898,13 @@ a {
   .modal {
     align-items: flex-start;
     padding-top: 48px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .cart-bar {
+    justify-content: center;
+    gap: 48px;
   }
 }
 
