@@ -30,6 +30,13 @@ const menuData = {
   ],
   juices: [
     {
+      id: "jui-morir-sonando",
+      name: "Morir Soñando",
+      price: 6.0,
+      inStock: true,
+      note: "House Specialty",
+    },
+    {
       id: "jui-passion-fruit",
       name: "Passion Fruit",
       price: 5.0,
@@ -40,13 +47,6 @@ const menuData = {
     { id: "jui-lemonade", name: "Lemonade", price: 5.0, inStock: true },
     { id: "jui-guanabana", name: "Guanabana", price: 5.0, inStock: false },
     { id: "jui-orange", name: "Orange", price: 5.0, inStock: true },
-    {
-      id: "jui-morir-sonando",
-      name: "Morir Soñando",
-      price: 6.0,
-      inStock: true,
-      note: "House Specialty",
-    },
   ],
   sodas: [
     { id: "soda-malta", name: "Malta", price: 2.0, inStock: false },

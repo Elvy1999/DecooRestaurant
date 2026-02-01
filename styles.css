@@ -867,6 +867,7 @@ a {
   .cart-bar {
     flex-direction: column;
     align-items: stretch;
+    padding-bottom: 24px;
   }
   .cart-bar__info {
     flex-direction: row;
