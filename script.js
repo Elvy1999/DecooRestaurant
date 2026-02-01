@@ -347,7 +347,6 @@ const deliveryAddressField = document.querySelector("[data-delivery-address-fiel
 const checkoutFieldName = document.querySelector('[data-field="name"]');
 const checkoutFieldPhone = document.querySelector('[data-field="phone"]');
 const checkoutFieldAddress = document.querySelector('[data-field="address"]');
-const checkoutFieldNotes = document.querySelector('[data-field="notes"]');
 const checkoutSummary = document.querySelector("[data-checkout-summary]");
 const checkoutTotals = document.querySelector("[data-checkout-totals]");
 const confirmationSummary = document.querySelector("[data-confirmation-summary]");
@@ -360,7 +359,6 @@ let checkoutState = {
   phone: "",
   orderType: "pickup",
   address: "",
-  notes: "",
 };
 
 const initMenus = () => {
@@ -390,7 +388,6 @@ const hydrateCheckoutInputsFromState = () => {
   if (checkoutFieldName) checkoutFieldName.value = checkoutState.name;
   if (checkoutFieldPhone) checkoutFieldPhone.value = checkoutState.phone;
   if (checkoutFieldAddress) checkoutFieldAddress.value = checkoutState.address;
-  if (checkoutFieldNotes) checkoutFieldNotes.value = checkoutState.notes;
 };
 
 const setCheckoutStep = (step) => {
@@ -485,7 +482,6 @@ const readCheckoutFields = () => {
   checkoutState.name = (checkoutFieldName?.value || "").trim();
   checkoutState.phone = (checkoutFieldPhone?.value || "").trim();
   checkoutState.address = (checkoutFieldAddress?.value || "").trim();
-  checkoutState.notes = (checkoutFieldNotes?.value || "").trim();
 };
 
 const validateCheckoutDetails = () => {
